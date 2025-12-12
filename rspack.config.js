@@ -5,6 +5,7 @@ import { ProvidePlugin } from '@rspack/core'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const isProd = process.env.NODE_ENV === 'production'
+const isGithubPages = process.env.GITHUB_PAGES === 'true'
 
 export default {
   mode: isProd ? 'production' : 'development',
@@ -14,6 +15,7 @@ export default {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     clean: true,
+    publicPath: isGithubPages ? '/css-jsx-app/' : 'auto',
     library: {
       type: 'umd',
       name: 'CssJsxApp',
