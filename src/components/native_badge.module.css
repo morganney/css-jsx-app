@@ -1,0 +1,30 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #0ea5e9, #2563eb);
+  color: #0b1220;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: 2px dashed rgba(11, 18, 32, 0.35);
+  box-shadow:
+    0 12px 30px rgba(14, 165, 233, 0.25),
+    0 0 0 1px rgba(37, 99, 235, 0.25);
+}
+
+.token {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: #0b1220;
+  color: #93c5fd;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.label {
+  font-size: 1rem;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}

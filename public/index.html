@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS + JSX Lit Host Demo</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      body {
+        margin: 0;
+        padding: 2.5rem;
+        display: grid;
+        gap: 1.5rem;
+        justify-items: center;
+      }
+      #extra-react-root {
+        width: min(960px, 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="extra-react-root"></div>
+    <script src="/bundle.js" type="module"></script>
+  </body>
+</html>

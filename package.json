@@ -1,0 +1,48 @@
+{
+  "name": "css-jsx-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "rspack serve --mode development",
+    "build": "rspack build --mode production && cp -R public/* dist/",
+    "start": "node dist/bundle.js",
+    "setup:wasm": "node scripts/setup-wasm.mjs",
+    "postinstall": "npm run setup:wasm",
+    "check-types": "tsc --noEmit",
+    "lint": "oxlint src",
+    "format": "prettier -w .",
+    "format:check": "prettier -c ."
+  },
+  "dependencies": {
+    "@knighted/css": "^1.0.0-rc.3",
+    "@knighted/jsx": "^1.2.1",
+    "@vanilla-extract/css": "^1.15.2",
+    "lit": "^3.2.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@napi-rs/wasm-runtime": "^1.1.0",
+    "@rspack/cli": "^1.6.7",
+    "@rspack/core": "^1.6.7",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vanilla-extract/integration": "^8.0.6",
+    "@vanilla-extract/recipes": "^0.5.7",
+    "@vanilla-extract/sprinkles": "^1.6.5",
+    "css-loader": "^7.1.2",
+    "oxlint": "^1.32.0",
+    "prettier": "^3.7.4",
+    "sass": "^1.96.0",
+    "style-loader": "^4.0.0",
+    "tar": "^7.5.2",
+    "typescript": "^5.9.3"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "printWidth": 90,
+    "semi": false,
+    "singleQuote": true
+  }
+}
