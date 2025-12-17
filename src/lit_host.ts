@@ -1,6 +1,6 @@
 import { reactJsx } from '@knighted/jsx/react'
 import { createRoot, type Root } from 'react-dom/client'
-import { LitElement, css, html, unsafeCSS, type PropertyValues } from 'lit'
+import { LitElement, html, unsafeCSS, type PropertyValues } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import { NativeBadge } from './components/native_badge.js'
@@ -10,51 +10,7 @@ import { knightedCss as nativeCss } from './components/native_badge.js?knighted-
 import { knightedCss as sassCss } from './components/sass_ribbon.js?knighted-css'
 import { knightedCss as veCss } from './components/ve_pill.js?knighted-css'
 
-const hostChrome = css`
-  :host {
-    display: block;
-    color: #e2e8f0;
-    font-family:
-      'Inter',
-      system-ui,
-      -apple-system,
-      'Segoe UI',
-      sans-serif;
-  }
-
-  .shell {
-    border-radius: 18px;
-    padding: 1.5rem;
-    background: #0b1220;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-    border: 1px solid #1f2937;
-  }
-
-  .shell header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    margin-bottom: 1rem;
-  }
-
-  .shell h1 {
-    margin: 0;
-    font-size: 1.25rem;
-    letter-spacing: 0.02em;
-  }
-
-  .shell p {
-    margin: 0;
-    color: #94a3b8;
-    line-height: 1.6;
-  }
-
-  .react-area {
-    display: grid;
-    gap: 1rem;
-    margin-top: 1.25rem;
-  }
-`
+import { hostChrome } from './host_chrome.js'
 
 @customElement('css-react-host')
 export class CssReactHost extends LitElement {
@@ -90,6 +46,11 @@ export class CssReactHost extends LitElement {
   #renderReactTree(): void {
     if (!this.#reactRoot) return
     const title = this.headline ?? 'Lit hosts a React tree styled three ways'
+    /**
+     * This build is not using @knighted/jsx/loader, so the reactJsx() call
+     * is parsed at runtime and produces the React element tree on the fly.
+     * In a real app, you could precompile this with the loader.
+     */
     this.#reactRoot.render(reactJsx`
       <div className="react-area" role="list">
         <${NativeBadge} label={${title}} />
