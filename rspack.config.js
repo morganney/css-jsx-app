@@ -1,6 +1,5 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { ProvidePlugin } from '@rspack/core'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -29,6 +28,7 @@ export default {
     port: 4173,
     host: '0.0.0.0',
     hot: true,
+    open: true,
     allowedHosts: 'all',
   },
   resolve: {
@@ -118,19 +118,9 @@ export default {
         ],
       },
       {
-        test: /\.css$/,
-        exclude: /\.module\.css$/,
-        type: 'asset/source',
-      },
-      {
         test: /\.s[ac]ss$/,
         type: 'asset/source',
       },
     ],
   },
-  plugins: [
-    new ProvidePlugin({
-      React: 'react',
-    }),
-  ],
 }
