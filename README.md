@@ -1,4 +1,4 @@
-# @knightd/jsx + @knighted/css Demo
+# @knighted/jsx + @knighted/css Demo
 
 A small demo app showing how [`@knighted/jsx`](https://github.com/knightedcodemonkey/jsx) and [`@knighted/css`](https://github.com/knightedcodemonkey/css) let a Lit custom element host a React subtree while keeping styles scoped inside the shadow DOM. Bundled with Rspack.
 
