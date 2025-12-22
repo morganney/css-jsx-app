@@ -78,6 +78,22 @@ In other words, TypeScript can only report the useful diagnostic (`foo` missing)
 - Libraries that generate declaration files for those imports cannot rely on TypeScript to use them, forcing each downstream app to layer bespoke tooling on top.
 - The current workaround (registry + helper) undermines the DX benefits of the generated literals and adds maintenance overhead.
 
+## Architectural Limitation (Current Understanding)
+
+This behavior matches the "pattern ambient module" limitation described in long-running TypeScript issues such as [#38638](https://github.com/microsoft/TypeScript/issues/38638) and [#28097](https://github.com/microsoft/TypeScript/issues/28097):
+
+1. **First-match wins:** once a wildcard declaration like `declare module '*?knighted-css&types'` is seen, TypeScript resolves matching imports to that declaration and never revisits literal declarations emitted later, so our generated `.d.ts` files are ignored.
+2. **No merging between wildcard and literal modules:** TypeScript treats the wildcard declaration and the specific `declare module "../src/components/stable_showcase.scss?knighted-css&types"` as disjoint modules, so their exports are never combined even though they describe the same specifier.
+3. **Silent fallback to loose types:** because the wildcard declaration compiles fine, TypeScript never emits an error—it just resolves `stableSelectors` as `unknown` (similar to the `*?raw` example in #38638), so consumers think they have types when they actually lost them.
+
+Known workarounds in 2025 include:
+
+- **Virtual file redirection:** rewrite imports to generated barrel files (e.g., `import selectors from './.generated/stable_showcase.scss'`) so the wildcard is never consulted.
+- **Constrain the wildcard:** scope the ambient declaration to narrower patterns, though this breaks down for general-purpose loaders.
+- **Double-extension trick:** use filenames such as `stable_showcase.scss.knighted-css.ts` instead of query strings so TypeScript treats them as ordinary modules, sacrificing the existing bundler conventions.
+
+None of these approaches allow `@knighted/css` (or any other loader-driven tool) to deliver literal selector types while preserving the natural `?knighted-css&types` import syntax.
+
 ## Minimal Package Changes Already Attempted
 
 - Canonical module specifiers: the generator emits declarations using the exact specifier TypeScript resolves for the import (relative path from the declaration directory plus the normalized query string).
