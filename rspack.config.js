@@ -5,6 +5,32 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const isProd = process.env.NODE_ENV === 'production'
 const isGithubPages = process.env.GITHUB_PAGES === 'true'
+const sassEmbedded = await import('sass-embedded')
+const sassImplementation = sassEmbedded.default ?? sassEmbedded
+
+const createSwcTsLoader = () => ({
+  loader: 'builtin:swc-loader',
+  options: {
+    jsc: {
+      target: 'es2022',
+      parser: {
+        syntax: 'typescript',
+        tsx: true,
+      },
+    },
+  },
+})
+
+const createKnightedCssLoaders = (extraOptions = {}) => [
+  {
+    loader: '@knighted/css/loader',
+    options: {
+      lightningcss: { minify: true },
+      ...extraOptions,
+    },
+  },
+  createSwcTsLoader(),
+]
 
 export default {
   mode: isProd ? 'production' : 'development',
@@ -41,53 +67,23 @@ export default {
     css: true,
   },
   module: {
+    parser: {
+      'css/auto': {
+        namedExports: false,
+      },
+    },
     rules: [
       {
-        test: /\.css\.ts$/,
-        use: [
+        oneOf: [
           {
-            loader: '@knighted/css/loader',
-            options: {
-              lightningcss: { minify: true },
+            test: /\.css\.ts$/,
+            use: createKnightedCssLoaders({
               vanilla: { transformToEsm: true },
-            },
+            }),
           },
           {
-            loader: 'builtin:swc-loader',
-            options: {
-              jsc: {
-                target: 'es2022',
-                parser: {
-                  syntax: 'typescript',
-                  tsx: true,
-                },
-              },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.[jt]sx?$/,
-        resourceQuery: /knighted-css/,
-        exclude: /\.css\.ts$/,
-        use: [
-          {
-            loader: '@knighted/css/loader',
-            options: {
-              lightningcss: { minify: true },
-            },
-          },
-          {
-            loader: 'builtin:swc-loader',
-            options: {
-              jsc: {
-                target: 'es2022',
-                parser: {
-                  syntax: 'typescript',
-                  tsx: true,
-                },
-              },
-            },
+            resourceQuery: /knighted-css/,
+            use: createKnightedCssLoaders(),
           },
         ],
       },
@@ -119,7 +115,19 @@ export default {
       },
       {
         test: /\.s[ac]ss$/,
-        type: 'asset/source',
+        type: 'css/auto',
+        use: [
+          {
+            loader: 'sass-loader',
+            options: {
+              api: 'modern-compiler',
+              implementation: sassImplementation,
+              sassOptions: {
+                silenceDeprecations: ['import'],
+              },
+            },
+          },
+        ],
       },
     ],
   },

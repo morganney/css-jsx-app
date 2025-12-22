@@ -2,11 +2,11 @@
 // Do not edit.
 
 export const stableSelectors = {
-  "card": "knighted-card",
-  "copy": "knighted-copy",
-  "cta": "knighted-cta",
-  "tag": "knighted-tag",
-  "title": "knighted-title",
+  card: 'knighted-card',
+  copy: 'knighted-copy',
+  cta: 'knighted-cta',
+  tag: 'knighted-tag',
+  title: 'knighted-title',
 } as const
 
 export type KnightedCssStableSelectors = typeof stableSelectors
