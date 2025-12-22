@@ -7,3 +7,6 @@ dist
 # Rspack/webpack cache
 .rspack-cache
 .cache
+
+# Knighted-css build outputs
+.knighted-css
