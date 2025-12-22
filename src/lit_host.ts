@@ -5,16 +5,24 @@ import { customElement } from 'lit/decorators.js'
 
 import { NativeBadge } from './components/native_badge.js'
 import { SassRibbon } from './components/sass_ribbon.js'
+import { StableShowcase } from './components/stable_showcase.js'
 import { VePill } from './components/ve_pill.js'
 import { knightedCss as nativeCss } from './components/native_badge.js?knighted-css'
 import { knightedCss as sassCss } from './components/sass_ribbon.js?knighted-css'
+import { knightedCss as stableShowcaseCss } from './components/stable_showcase.scss?knighted-css'
 import { knightedCss as veCss } from './components/ve_pill.js?knighted-css'
 
 import { hostChrome } from './host_chrome.js'
 
 @customElement('css-react-host')
 export class CssReactHost extends LitElement {
-  static styles = [unsafeCSS(nativeCss), unsafeCSS(sassCss), unsafeCSS(veCss), hostChrome]
+  static styles = [
+    unsafeCSS(nativeCss),
+    unsafeCSS(sassCss),
+    unsafeCSS(stableShowcaseCss),
+    unsafeCSS(veCss),
+    hostChrome,
+  ]
 
   static properties = {
     headline: { type: String },
@@ -55,6 +63,7 @@ export class CssReactHost extends LitElement {
       <div className="react-area" role="list">
         <${NativeBadge} label={${title}} />
         <${SassRibbon} />
+        <${StableShowcase} />
         <${VePill} />
       </div>
     `)

@@ -68,7 +68,32 @@ export default {
       },
       {
         test: /\.[jt]sx?$/,
-        resourceQuery: /knighted-css/,
+        resourceQuery: /knighted-css&types/,
+        type: 'javascript/auto',
+        use: [
+          {
+            loader: '@knighted/css/loader',
+            options: {
+              lightningcss: { minify: true },
+            },
+          },
+          {
+            loader: 'builtin:swc-loader',
+            options: {
+              jsc: {
+                target: 'es2022',
+                parser: {
+                  syntax: 'typescript',
+                  tsx: true,
+                },
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.[jt]sx?$/,
+        resourceQuery: /knighted-css(?!.*&types)/,
         exclude: /\.css\.ts$/,
         use: [
           {
@@ -94,6 +119,7 @@ export default {
       {
         test: /\.tsx?$/,
         exclude: [/node_modules/, /\.css\.ts$/],
+        resourceQuery: { not: /knighted-css/ },
         use: [
           {
             loader: 'builtin:swc-loader',
