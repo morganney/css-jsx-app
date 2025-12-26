@@ -1,18 +1,30 @@
 import { reactJsx } from '@knighted/jsx/react'
+import { asKnightedCssCombinedModule } from '@knighted/css/loader-helpers'
 import { createRoot, type Root } from 'react-dom/client'
 import { LitElement, html, unsafeCSS, type PropertyValues } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-import { NativeBadge } from './components/native_badge.js'
-import { SassRibbon } from './components/sass_ribbon.js'
-import { StableShowcase } from './components/stable_showcase.js'
-import { VePill } from './components/ve_pill.js'
-import { knightedCss as nativeCss } from './components/native_badge.js?knighted-css'
-import { knightedCss as sassCss } from './components/sass_ribbon.js?knighted-css'
-import { knightedCss as stableCss } from './components/stable_showcase.js?knighted-css'
-import { knightedCss as veCss } from './components/ve_pill.js?knighted-css'
+import * as nativeBadgeModule from './components/native_badge.js?knighted-css&combined&named-only'
+import * as sassRibbonModule from './components/sass_ribbon.js?knighted-css&combined&named-only'
+import * as stableShowcaseModule from './components/stable_showcase.js?knighted-css&combined&named-only'
+import * as vePillModule from './components/ve_pill.js?knighted-css&combined&named-only'
 
 import { hostChrome } from './host_chrome.js'
+
+const { NativeBadge, knightedCss: nativeCss } =
+  asKnightedCssCombinedModule<typeof import('./components/native_badge.js')>(
+    nativeBadgeModule,
+  )
+const { SassRibbon, knightedCss: sassCss } =
+  asKnightedCssCombinedModule<typeof import('./components/sass_ribbon.js')>(
+    sassRibbonModule,
+  )
+const { StableShowcase, knightedCss: stableCss } =
+  asKnightedCssCombinedModule<typeof import('./components/stable_showcase.js')>(
+    stableShowcaseModule,
+  )
+const { VePill, knightedCss: veCss } =
+  asKnightedCssCombinedModule<typeof import('./components/ve_pill.js')>(vePillModule)
 
 @customElement('css-react-host')
 export class CssReactHost extends LitElement {
