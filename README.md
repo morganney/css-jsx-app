@@ -18,11 +18,7 @@ npm run build
 ```
 
 > [!NOTE]
-> `npm install` automatically runs `npx @knighted/jsx init` to install the WASM parser and `npm run types:css` to generate the `@knighted/css` stable selector types via `postinstall`.
-
-## Notes on bundle size
-
-`@knighted/jsx` ships a WASM parser to enable JSX-like tagged template syntax at runtime. This adds ~1.6 MB of WASM (plus a small chunk) to the bundle; Rspack will warn about asset size. The warnings are expected for this demo.
+> `npm install` automatically runs `npm run types:css` to generate the `@knighted/css` stable selector types via `postinstall`.
 
 ## Key scripts
 
@@ -35,7 +31,7 @@ npm run build
 
 ## Stable selector demo
 
-[`src/components/stable_showcase.tsx`](src/components/stable_showcase.tsx) and [`src/components/stable_showcase.module.scss`](src/components/stable_showcase.module.scss) pair a CSS Module with the generated selector metadata from [`@knighted/css/generate-types`](https://github.com/knightedcodemonkey/css). The double-extension import (`.module.scss.knighted-css.ts`) supplies the stable selector tokens that TypeScript understands, and `mergeStableClass({ hashed: styles, selectors })` keeps the runtime class names in sync. Running `npm run types:css` produces the selector manifest so the Lit host can continue importing `?knighted-css` for shadow DOM styling while React enjoys typed class names.
+[`src/components/stable_showcase.ts`](src/components/stable_showcase.ts) and [`src/components/stable_showcase.module.scss`](src/components/stable_showcase.module.scss) pair a CSS Module with the generated selector metadata from [`@knighted/css/generate-types`](https://github.com/knightedcodemonkey/css). The double-extension import (`.module.scss.knighted-css.ts`) supplies the stable selector tokens that TypeScript understands, and `mergeStableClass({ hashed: styles, selectors })` keeps the runtime class names in sync. Running `npm run types:css` produces the selector manifest so the Lit host can continue importing `?knighted-css` for shadow DOM styling while React enjoys typed class names.
 
 ## Structure
 

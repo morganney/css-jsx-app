@@ -66,11 +66,7 @@ export class CssReactHost extends LitElement {
   #renderReactTree(): void {
     if (!this.#reactRoot) return
     const title = this.headline ?? 'Lit hosts a React tree styled three ways'
-    /**
-     * This build is not using @knighted/jsx/loader, so the reactJsx() call
-     * is parsed at runtime and produces the React element tree on the fly.
-     * In a real app, you could precompile this with the loader.
-     */
+
     this.#reactRoot.render(reactJsx`
       <div className="react-area" role="list">
         <${NativeBadge} label={${title}} />
