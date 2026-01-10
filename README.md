@@ -2,6 +2,9 @@
 
 A small demo app showing how [`@knighted/jsx`](https://github.com/knightedcodemonkey/jsx) and [`@knighted/css`](https://github.com/knightedcodemonkey/css) let a Lit custom element host a React subtree while keeping styles scoped inside the shadow DOM. Bundled with Rspack.
 
+> [!TIP]
+> Check out the [Node.js SSR + Hydration](https://github.com/morganney/jsx-node-playground) and [@knighted/jsx/loader](https://github.com/morganney/jsx-loader-demo) demos too.
+
 ## What it does
 
 - Registers a Lit element that mounts a React tree via `reactJsx` inside its shadow root.
