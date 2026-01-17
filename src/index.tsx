@@ -9,7 +9,7 @@ const mountHost = () => {
   if (!app) return
   if (!app.querySelector('css-react-host')) {
     const host = document.createElement('css-react-host')
-    host.setAttribute('headline', 'CSS Modules badge (native CSS syntax)')
+    host.setAttribute('headline', 'CSS Modules badge (hashed class names)')
     app.appendChild(host)
   }
 }

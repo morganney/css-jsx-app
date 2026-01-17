@@ -9,29 +9,38 @@ import {
   knightedCss as autoStableCss,
 } from './components/auto_stable_showcase.knighted-css.js'
 import * as lessChipModule from './components/less_chip.js?knighted-css&combined&named-only'
-import * as nativeBadgeModule from './components/native_badge.js?knighted-css&combined&named-only'
-import * as sassRibbonModule from './components/sass_ribbon.js?knighted-css&combined&named-only'
-import * as veBannerModule from './components/ve_banner.js?knighted-css&combined&named-only'
+import {
+  NativeBadge,
+  knightedCss as nativeCss,
+} from './components/native_badge.knighted-css.js'
+import {
+  NativeCssBadge,
+  knightedCss as nativeCssBadgeCss,
+} from './components/native_css_badge.knighted-css.js'
+import {
+  SassRibbon,
+  knightedCss as sassCss,
+} from './components/sass_ribbon.knighted-css.js'
+import {
+  VeBanner,
+  knightedCss as veBannerCss,
+} from './components/ve_banner.knighted-css.js'
 
 import { hostChrome } from './host_chrome.js'
 
-const { NativeBadge, knightedCss: nativeCss } =
-  asKnightedCssCombinedModule<typeof import('./components/native_badge.js')>(
-    nativeBadgeModule,
-  )
+/**
+ * Example of using a `&combined` query parameter to load a CSS module with combined and named-only exports.
+ * The `asKnightedCssCombinedModule` helper is used to extract the React component and the CSS from the combined module.
+ * This is useful when you don't want to run the knighted-css-generate-types command for every CSS module.
+ */
 const { LessChip, knightedCss: lessCss } =
   asKnightedCssCombinedModule<typeof import('./components/less_chip.js')>(lessChipModule)
-const { SassRibbon, knightedCss: sassCss } =
-  asKnightedCssCombinedModule<typeof import('./components/sass_ribbon.js')>(
-    sassRibbonModule,
-  )
-const { VeBanner, knightedCss: veBannerCss } =
-  asKnightedCssCombinedModule<typeof import('./components/ve_banner.js')>(veBannerModule)
 
 @customElement('css-react-host')
 export class CssReactHost extends LitElement {
   static styles = [
     unsafeCSS(nativeCss),
+    unsafeCSS(nativeCssBadgeCss),
     unsafeCSS(lessCss),
     unsafeCSS(sassCss),
     unsafeCSS(autoStableCss),
@@ -73,6 +82,7 @@ export class CssReactHost extends LitElement {
     this.#reactRoot.render(reactJsx`
       <div className="react-area" role="list">
         <${NativeBadge} label={${title}} />
+        <${NativeCssBadge} />
         <${SassRibbon} />
         <${LessChip} />
         <${VeBanner}
