@@ -10,7 +10,7 @@
     "postinstall": "npm run types:css",
     "check-types": "tsc --noEmit",
     "precheck-types": "npm run types:css",
-    "types:css": "knighted-css-generate-types --root . --include src",
+    "types:css": "knighted-css-generate-types --root . --include src --auto-stable",
     "lint": "oxlint src",
     "format": "prettier -w .",
     "format:check": "prettier -c ."

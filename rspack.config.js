@@ -26,6 +26,7 @@ const createKnightedCssLoaders = (extraOptions = {}) => [
     loader: '@knighted/css/loader',
     options: {
       lightningcss: { minify: true },
+      autoStable: true,
       ...extraOptions,
     },
   },
@@ -42,6 +43,7 @@ export default (_, argv = {}) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
+      cssFilename: 'bundle.css',
       clean: true,
       publicPath: isGithubPages ? '/css-jsx-app/' : 'auto',
       library: {
@@ -75,6 +77,11 @@ export default (_, argv = {}) => {
       }),
     ],
     module: {
+      generator: {
+        'css/auto': {
+          localIdentName: '[local]-[hash:base64:6]',
+        },
+      },
       parser: {
         'css/auto': {
           namedExports: false,

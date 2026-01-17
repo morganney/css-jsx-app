@@ -4,6 +4,10 @@ import { createRoot, type Root } from 'react-dom/client'
 import { LitElement, html, unsafeCSS, type PropertyValues } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
+import {
+  AutoStableShowcase,
+  knightedCss as autoStableCss,
+} from './components/auto_stable_showcase.knighted-css.js'
 import * as nativeBadgeModule from './components/native_badge.js?knighted-css&combined&named-only'
 import * as sassRibbonModule from './components/sass_ribbon.js?knighted-css&combined&named-only'
 import * as stableShowcaseModule from './components/stable_showcase.js?knighted-css&combined&named-only'
@@ -32,6 +36,7 @@ export class CssReactHost extends LitElement {
     unsafeCSS(nativeCss),
     unsafeCSS(sassCss),
     unsafeCSS(stableCss),
+    unsafeCSS(autoStableCss),
     unsafeCSS(veCss),
     hostChrome,
   ]
@@ -73,6 +78,7 @@ export class CssReactHost extends LitElement {
         <${SassRibbon} />
         <${StableShowcase} />
         <${VePill} />
+        <${AutoStableShowcase} location="shadow" />
       </div>
     `)
   }

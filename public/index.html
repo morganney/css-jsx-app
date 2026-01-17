@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CSS + JSX Lit Host Demo</title>
+    <link rel="stylesheet" href="./bundle.css" />
     <style>
       :root {
         color-scheme: dark;
@@ -23,9 +24,30 @@
         display: grid;
         gap: 1.5rem;
         justify-items: center;
+        background: radial-gradient(circle at top, #0f172a, #050814 70%);
       }
+      #app,
       #extra-react-root {
         width: min(960px, 100%);
+      }
+      #app,
+      #extra-react-root {
+        border-radius: 20px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        padding: 1.5rem;
+        background: rgba(15, 23, 42, 0.55);
+        box-shadow: 0 20px 40px rgba(2, 6, 23, 0.55);
+      }
+      #app {
+        border-color: rgba(99, 102, 241, 0.5);
+      }
+      #extra-react-root {
+        border-color: rgba(14, 165, 233, 0.5);
+        display: grid;
+        gap: 1rem;
+      }
+      css-react-host {
+        display: block;
       }
     </style>
   </head>

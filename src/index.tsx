@@ -1,6 +1,7 @@
 import './lit_host.js'
 
 import { createRoot } from 'react-dom/client'
+import { AutoStableShowcase } from './components/auto_stable_showcase.js'
 import { VeBanner } from './components/ve_banner.js'
 
 const mountHost = () => {
@@ -20,10 +21,13 @@ const mountExtraReact = () => {
     extraRoot.dataset.mounted = 'true'
     const root = createRoot(extraRoot)
     root.render(
-      <VeBanner
-        title="Vanilla-extract outside the shadow DOM"
-        blurb="This React component proves the vanilla-extract build works without Lit, too."
-      />,
+      <>
+        <AutoStableShowcase location="light" />
+        <VeBanner
+          title="Vanilla-extract outside the shadow DOM"
+          blurb="This React component proves the vanilla-extract build works without Lit, too."
+        />
+      </>,
     )
   }
 }
