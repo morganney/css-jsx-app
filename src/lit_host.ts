@@ -8,10 +8,10 @@ import {
   AutoStableShowcase,
   knightedCss as autoStableCss,
 } from './components/auto_stable_showcase.knighted-css.js'
+import * as lessChipModule from './components/less_chip.js?knighted-css&combined&named-only'
 import * as nativeBadgeModule from './components/native_badge.js?knighted-css&combined&named-only'
 import * as sassRibbonModule from './components/sass_ribbon.js?knighted-css&combined&named-only'
-import * as stableShowcaseModule from './components/stable_showcase.js?knighted-css&combined&named-only'
-import * as vePillModule from './components/ve_pill.js?knighted-css&combined&named-only'
+import * as veBannerModule from './components/ve_banner.js?knighted-css&combined&named-only'
 
 import { hostChrome } from './host_chrome.js'
 
@@ -19,25 +19,23 @@ const { NativeBadge, knightedCss: nativeCss } =
   asKnightedCssCombinedModule<typeof import('./components/native_badge.js')>(
     nativeBadgeModule,
   )
+const { LessChip, knightedCss: lessCss } =
+  asKnightedCssCombinedModule<typeof import('./components/less_chip.js')>(lessChipModule)
 const { SassRibbon, knightedCss: sassCss } =
   asKnightedCssCombinedModule<typeof import('./components/sass_ribbon.js')>(
     sassRibbonModule,
   )
-const { StableShowcase, knightedCss: stableCss } =
-  asKnightedCssCombinedModule<typeof import('./components/stable_showcase.js')>(
-    stableShowcaseModule,
-  )
-const { VePill, knightedCss: veCss } =
-  asKnightedCssCombinedModule<typeof import('./components/ve_pill.js')>(vePillModule)
+const { VeBanner, knightedCss: veBannerCss } =
+  asKnightedCssCombinedModule<typeof import('./components/ve_banner.js')>(veBannerModule)
 
 @customElement('css-react-host')
 export class CssReactHost extends LitElement {
   static styles = [
     unsafeCSS(nativeCss),
+    unsafeCSS(lessCss),
     unsafeCSS(sassCss),
-    unsafeCSS(stableCss),
     unsafeCSS(autoStableCss),
-    unsafeCSS(veCss),
+    unsafeCSS(veBannerCss),
     hostChrome,
   ]
 
@@ -76,8 +74,11 @@ export class CssReactHost extends LitElement {
       <div className="react-area" role="list">
         <${NativeBadge} label={${title}} />
         <${SassRibbon} />
-        <${StableShowcase} />
-        <${VePill} />
+        <${LessChip} />
+        <${VeBanner}
+          title="Vanilla-extract inside the shadow DOM"
+          blurb="The same component can render inside the shadow root with scoped styles."
+        />
         <${AutoStableShowcase} location="shadow" />
       </div>
     `)
@@ -94,10 +95,10 @@ export class CssReactHost extends LitElement {
     return html`
       <section class="shell">
         <header>
-          <h1>Lit host + React children</h1>
+          <h1>Shadow DOM components</h1>
           <p>
-            React is rendered inside the shadow DOM via reactJsx, while each child
-            component's CSS is surfaced through @knighted/css for true shadow scoping.
+            These React components render inside the shadow root and pull CSS from
+            @knighted/css so the styles stay scoped.
           </p>
         </header>
         <div data-react-root></div>

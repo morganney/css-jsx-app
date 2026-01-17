@@ -24,8 +24,8 @@ export const AutoStableShowcase: FC<AutoStableShowcaseProps> = ({
       <span className={merged.kicker}>auto-stable</span>
       <h3 className={merged.title}>Auto-stable selectors</h3>
       <p className={merged.copy}>
-        This component uses only stable selector tokens and relies on the loader to mirror
-        them into the compiled CSS.
+        This component merges hashed and stable selectors so one stylesheet works in both
+        light DOM and shadow DOM.
       </p>
       <div className={merged.actions}>
         <button className={merged.button} type="button">

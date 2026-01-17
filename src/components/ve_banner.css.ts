@@ -1,35 +1,28 @@
 import { style } from '@vanilla-extract/css'
 
 export const banner = style({
-  display: 'flex',
+  display: 'inline-flex',
   alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: '1rem',
-  padding: '1rem 1.5rem',
-  borderRadius: '16px',
-  background: 'linear-gradient(135deg, #111827, #0b1220)',
-  border: '1px solid #1f2937',
-  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35)',
+  gap: '0.6rem',
+  padding: '0.55rem 0.9rem',
+  borderRadius: '999px',
+  background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85), #0b1220)',
+  border: '1px solid rgba(16, 185, 129, 0.35)',
+  boxShadow: '0 12px 24px rgba(5, 10, 20, 0.4)',
 })
 
 export const badge = style({
-  padding: '0.4rem 0.8rem',
-  borderRadius: '12px',
+  padding: '0.35rem 0.7rem',
+  borderRadius: '999px',
   background: '#10b981',
   color: '#022c22',
   fontWeight: 700,
   letterSpacing: '0.06em',
   textTransform: 'uppercase',
-})
-
-export const heading = style({
-  margin: 0,
-  color: '#ecfeff',
-  fontSize: '1.05rem',
+  fontSize: '0.75rem',
 })
 
 export const detail = style({
-  margin: 0,
   color: '#cbd5e1',
-  fontSize: '0.95rem',
+  fontSize: '0.85rem',
 })

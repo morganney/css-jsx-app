@@ -33,12 +33,6 @@ export const hostChrome = css`
     letter-spacing: 0.02em;
   }
 
-  .shell p {
-    margin: 0;
-    color: #94a3b8;
-    line-height: 1.6;
-  }
-
   .react-area {
     display: grid;
     gap: 1rem;

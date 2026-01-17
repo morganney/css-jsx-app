@@ -151,6 +151,15 @@ export default (_, argv = {}) => {
             },
           ],
         },
+        {
+          test: /\.less$/,
+          type: 'css/auto',
+          use: [
+            {
+              loader: 'less-loader',
+            },
+          ],
+        },
       ],
     },
   }
