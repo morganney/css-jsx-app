@@ -1,6 +1,6 @@
 # @knighted/jsx + @knighted/css Demo
 
-A small demo app showing how [`@knighted/jsx`](https://github.com/knightedcodemonkey/jsx) and [`@knighted/css`](https://github.com/knightedcodemonkey/css) let a Lit custom element host a React subtree while keeping styles scoped inside the shadow DOM. Bundled with Rspack.
+A small demo app showing how [`@knighted/jsx`](https://github.com/knightedcodemonkey/jsx) and [`@knighted/css`](https://github.com/knightedcodemonkey/css) let a Lit custom element host a React subtree while keeping styles scoped inside the shadow DOM, plus a light-DOM surface that reuses the same styles. Bundled with Rspack.
 
 > [!TIP]
 > Check out the [Node.js SSR + Hydration](https://github.com/morganney/jsx-node-playground) and [@knighted/jsx/loader](https://github.com/morganney/jsx-loader-demo) demos too.
@@ -8,9 +8,9 @@ A small demo app showing how [`@knighted/jsx`](https://github.com/knightedcodemo
 ## What it does
 
 - Registers a Lit element that mounts a React tree via `reactJsx` inside its shadow root.
-- Demonstrates three styling approaches for the React children: CSS modules (native CSS), Sass, and vanilla-extract (via `@knighted/css` loader).
-- Includes an extra React component rendered outside the Lit host to show vanilla-extract in a plain React context.
-- Highlights the stable selector workflow from `@knighted/css` through the `StableShowcase` component.
+- Demonstrates native CSS, CSS Modules, Sass/SCSS, Less, and vanilla-extract inside the shadow DOM using `@knighted/css`.
+- Renders a light-DOM section that reuses the same auto-stable stylesheet via `mergeStableClass`.
+- Uses the unified `.knighted-css` proxy imports for a cleaner DX (with one `?knighted-css&combined` example kept for comparison).
 
 ## Getting started
 
@@ -34,11 +34,12 @@ npm run build
 
 ## Stable selector demo
 
-[`src/components/stable_showcase.ts`](src/components/stable_showcase.ts) and [`src/components/stable_showcase.module.scss`](src/components/stable_showcase.module.scss) pair a CSS Module with the generated selector metadata from [`@knighted/css/generate-types`](https://github.com/knightedcodemonkey/css). The double-extension import (`.module.scss.knighted-css.ts`) supplies the stable selector tokens that TypeScript understands, and `mergeStableClass({ hashed: styles, selectors })` keeps the runtime class names in sync. Running `npm run types:css` produces the selector manifest so the Lit host can continue importing `?knighted-css` for shadow DOM styling while React enjoys typed class names.
+[`src/components/auto_stable_showcase.tsx`](src/components/auto_stable_showcase.tsx) and [`src/components/auto_stable_showcase.module.scss`](src/components/auto_stable_showcase.module.scss) show the auto-stable workflow. The double-extension import (`.module.scss.knighted-css.ts`) supplies stable selector tokens that TypeScript understands, and `mergeStableClass({ hashed: styles, selectors })` keeps the runtime class names in sync so the same stylesheet works in light and shadow DOM. Running `npm run types:css` produces the selector manifest.
 
 ## Structure
 
-- `src/lit_host.ts` – Lit custom element that mounts the React tree via `reactJsx`
-- `src/components/` – React components (CSS modules, Sass, vanilla-extract)
+- `src/lit_host.ts` – Lit custom element that mounts the shadow DOM React tree
+- `src/index.tsx` – Light DOM entry and mounts
+- `src/components/` – React components (native CSS, CSS Modules, Sass/SCSS, Less, vanilla-extract, auto-stable)
 - `public/` – HTML entry
 - `rspack.config.js` – Build configuration with `@knighted/css` loader and SWC
