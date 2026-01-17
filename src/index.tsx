@@ -2,6 +2,7 @@ import './lit_host.js'
 
 import { createRoot } from 'react-dom/client'
 import { AutoStableShowcase } from './components/auto_stable_showcase.js'
+import stableSelectors from './components/auto_stable_showcase.module.scss.knighted-css.js'
 import { VeBanner } from './components/ve_banner.js'
 
 const mountHost = () => {
@@ -30,7 +31,7 @@ const mountExtraReact = () => {
           </p>
         </header>
         <div className="light-grid">
-          <AutoStableShowcase location="light" />
+          <AutoStableShowcase location="light" stableToken={stableSelectors.panel} />
           <VeBanner
             title="Vanilla-extract outside the shadow DOM"
             blurb="This React component proves the vanilla-extract build works without Lit, too."

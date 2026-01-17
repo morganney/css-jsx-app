@@ -7,6 +7,7 @@ import { customElement } from 'lit/decorators.js'
 import {
   AutoStableShowcase,
   knightedCss as autoStableCss,
+  stableSelectors,
 } from './components/auto_stable_showcase.knighted-css.js'
 import * as lessChipModule from './components/less_chip.js?knighted-css&combined&named-only'
 import {
@@ -89,7 +90,10 @@ export class CssReactHost extends LitElement {
           title="Vanilla-extract inside the shadow DOM"
           blurb="The same component can render inside the shadow root with scoped styles."
         />
-        <${AutoStableShowcase} location="shadow" />
+        <${AutoStableShowcase}
+          location="shadow"
+          stableToken={${stableSelectors.panel}}
+        />
       </div>
     `)
   }

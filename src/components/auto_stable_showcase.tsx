@@ -6,10 +6,12 @@ import styles from './auto_stable_showcase.module.scss'
 
 export type AutoStableShowcaseProps = {
   location?: 'light' | 'shadow'
+  stableToken: typeof stableSelectors.panel
 }
 
 export const AutoStableShowcase: FC<AutoStableShowcaseProps> = ({
   location = 'light',
+  stableToken,
 }) => {
   const locationLabel = location === 'shadow' ? 'Shadow DOM' : 'Light DOM'
   const merged = mergeStableClass({ hashed: styles, selectors: stableSelectors })
@@ -31,7 +33,7 @@ export const AutoStableShowcase: FC<AutoStableShowcaseProps> = ({
         <button className={merged.button} type="button">
           {locationLabel}
         </button>
-        <span className={merged.meta}>{stableSelectors.panel}</span>
+        <span className={merged.meta}>{stableToken}</span>
       </div>
     </article>
   )
