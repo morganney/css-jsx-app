@@ -4,35 +4,48 @@ import { createRoot, type Root } from 'react-dom/client'
 import { LitElement, html, unsafeCSS, type PropertyValues } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-import * as nativeBadgeModule from './components/native_badge.js?knighted-css&combined&named-only'
-import * as sassRibbonModule from './components/sass_ribbon.js?knighted-css&combined&named-only'
-import * as stableShowcaseModule from './components/stable_showcase.js?knighted-css&combined&named-only'
-import * as vePillModule from './components/ve_pill.js?knighted-css&combined&named-only'
+import {
+  AutoStableShowcase,
+  knightedCss as autoStableCss,
+  stableSelectors,
+} from './components/auto_stable_showcase.knighted-css.js'
+import * as lessChipModule from './components/less_chip.js?knighted-css&combined&named-only'
+import {
+  NativeBadge,
+  knightedCss as nativeCss,
+} from './components/native_badge.knighted-css.js'
+import {
+  NativeCssBadge,
+  knightedCss as nativeCssBadgeCss,
+} from './components/native_css_badge.knighted-css.js'
+import {
+  SassRibbon,
+  knightedCss as sassCss,
+} from './components/sass_ribbon.knighted-css.js'
+import {
+  VeBanner,
+  knightedCss as veBannerCss,
+} from './components/ve_banner.knighted-css.js'
 
 import { hostChrome } from './host_chrome.js'
 
-const { NativeBadge, knightedCss: nativeCss } =
-  asKnightedCssCombinedModule<typeof import('./components/native_badge.js')>(
-    nativeBadgeModule,
-  )
-const { SassRibbon, knightedCss: sassCss } =
-  asKnightedCssCombinedModule<typeof import('./components/sass_ribbon.js')>(
-    sassRibbonModule,
-  )
-const { StableShowcase, knightedCss: stableCss } =
-  asKnightedCssCombinedModule<typeof import('./components/stable_showcase.js')>(
-    stableShowcaseModule,
-  )
-const { VePill, knightedCss: veCss } =
-  asKnightedCssCombinedModule<typeof import('./components/ve_pill.js')>(vePillModule)
+/**
+ * Example of using a `&combined` query parameter to load a CSS module with combined and named-only exports.
+ * The `asKnightedCssCombinedModule` helper is used to extract the React component and the CSS from the combined module.
+ * This is useful when you don't want to run the knighted-css-generate-types command for every CSS module.
+ */
+const { LessChip, knightedCss: lessCss } =
+  asKnightedCssCombinedModule<typeof import('./components/less_chip.js')>(lessChipModule)
 
 @customElement('css-react-host')
 export class CssReactHost extends LitElement {
   static styles = [
     unsafeCSS(nativeCss),
+    unsafeCSS(nativeCssBadgeCss),
+    unsafeCSS(lessCss),
     unsafeCSS(sassCss),
-    unsafeCSS(stableCss),
-    unsafeCSS(veCss),
+    unsafeCSS(autoStableCss),
+    unsafeCSS(veBannerCss),
     hostChrome,
   ]
 
@@ -70,9 +83,17 @@ export class CssReactHost extends LitElement {
     this.#reactRoot.render(reactJsx`
       <div className="react-area" role="list">
         <${NativeBadge} label={${title}} />
+        <${NativeCssBadge} />
         <${SassRibbon} />
-        <${StableShowcase} />
-        <${VePill} />
+        <${LessChip} />
+        <${VeBanner}
+          title="Vanilla-extract inside the shadow DOM"
+          blurb="The same component can render inside the shadow root with scoped styles."
+        />
+        <${AutoStableShowcase}
+          location="shadow"
+          stableToken={${stableSelectors.panel}}
+        />
       </div>
     `)
   }
@@ -88,10 +109,10 @@ export class CssReactHost extends LitElement {
     return html`
       <section class="shell">
         <header>
-          <h1>Lit host + React children</h1>
+          <h1>Shadow DOM components</h1>
           <p>
-            React is rendered inside the shadow DOM via reactJsx, while each child
-            component's CSS is surfaced through @knighted/css for true shadow scoping.
+            These React components render inside the shadow root and pull CSS from
+            @knighted/css so the styles stay scoped.
           </p>
         </header>
         <div data-react-root></div>

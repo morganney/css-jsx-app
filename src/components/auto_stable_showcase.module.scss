@@ -1,0 +1,92 @@
+$panel-bg: radial-gradient(circle at top left, #1e1b4b, #0f172a 65%);
+$panel-border: rgba(139, 92, 246, 0.45);
+$kicker-bg: rgba(15, 23, 42, 0.65);
+$kicker-color: #e9d5ff;
+$title-color: #f5f3ff;
+$copy-color: #c7d2fe;
+$button-bg: #a78bfa;
+$button-text: #1f2937;
+$meta-color: rgba(226, 232, 240, 0.75);
+
+.panel {
+  flex: 1 1 260px;
+  min-width: 280px;
+  padding: 1.5rem;
+  border-radius: 22px;
+  background: $panel-bg;
+  border: 1px solid $panel-border;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.55);
+  color: $copy-color;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: 18px;
+  border: 1px dashed rgba(216, 180, 254, 0.18);
+  pointer-events: none;
+}
+
+.kicker {
+  align-self: flex-start;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: $kicker-bg;
+  color: $kicker-color;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: $title-color;
+}
+
+.copy {
+  margin: 0;
+  line-height: 1.5;
+  color: $copy-color;
+  max-width: 34ch;
+}
+
+.actions {
+  margin-top: auto;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 0.55rem 1.1rem;
+  border-radius: 12px;
+  border: none;
+  background: $button-bg;
+  color: $button-text;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(167, 139, 250, 0.45);
+}
+
+.meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: $meta-color;
+}
