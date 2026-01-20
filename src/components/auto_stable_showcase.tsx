@@ -2,7 +2,7 @@ import type { FC } from 'react'
 
 import { mergeStableClass } from '@knighted/css/stableSelectors'
 import stableSelectors from './auto_stable_showcase.module.scss.knighted-css.js'
-import styles from './auto_stable_showcase.module.scss'
+import * as styles from './auto_stable_showcase.module.scss'
 
 export type AutoStableShowcaseProps = {
   location?: 'light' | 'shadow'
