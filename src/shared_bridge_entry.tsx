@@ -19,12 +19,24 @@ function getOrCreateBridgeRoot(): HTMLElement {
   return element
 }
 
-const shadow = host.attachShadow({ mode: 'open' })
-const style = document.createElement('style')
-style.textContent = knightedCss
-shadow.appendChild(style)
+const shadow = host.shadowRoot ?? host.attachShadow({ mode: 'open' })
+const styleId = 'bridge-styles'
+const existingStyle = shadow.getElementById(styleId)
+if (!existingStyle) {
+  const style = document.createElement('style')
+  style.id = styleId
+  style.textContent = knightedCss
+  shadow.appendChild(style)
+} else {
+  existingStyle.textContent = knightedCss
+}
 
-const mount = document.createElement('div')
-shadow.appendChild(mount)
+const mountId = 'bridge-mount'
+let mount = shadow.getElementById(mountId)
+if (!mount) {
+  mount = document.createElement('div')
+  mount.id = mountId
+  shadow.appendChild(mount)
+}
 
 createRoot(mount).render(<SharedBridgePanel location="shadow" />)

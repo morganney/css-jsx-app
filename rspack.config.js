@@ -5,7 +5,8 @@ import { rspack } from '@rspack/core'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const isGithubPages = process.env.GITHUB_PAGES === 'true'
-const sassImplementation = await import('sass-embedded')
+const sassEmbedded = await import('sass-embedded')
+const sassImplementation = sassEmbedded.default ?? sassEmbedded
 
 const createSwcTsLoader = () => ({
   loader: 'builtin:swc-loader',
@@ -26,6 +27,9 @@ const createKnightedCssLoaders = (extraOptions = {}) => [
     loader: '@knighted/css/loader',
     options: {
       autoStable: true,
+      lightningcss: {
+        minify: true,
+      },
       ...extraOptions,
     },
   },
@@ -64,6 +68,9 @@ const createSassLoader = () => ({
   options: {
     api: 'modern-compiler',
     implementation: sassImplementation,
+    sassOptions: {
+      silenceDeprecations: ['import'],
+    },
   },
 })
 
@@ -228,10 +235,19 @@ export default (_, argv = {}) => {
         '.js': ['.js', '.ts', '.tsx'],
       },
       alias: {
+        /*
+         * Force Sass resolution through sass-embedded to keep loader/runtime
+         * behavior consistent across environments.
+         */
         sass: 'sass-embedded',
       },
     },
     experiments: {
+      /*
+       * Disabled to ensure all CSS flows through explicit loader rules
+       * (CSS modules, @knighted/css, and extract loaders) without Rspack
+       * experimental CSS handling interfering with output consistency.
+       */
       css: false,
     },
   }
