@@ -9,7 +9,7 @@ import {
   knightedCss as autoStableCss,
   stableSelectors,
 } from './components/auto_stable_showcase.knighted-css.js'
-import * as lessChipModule from './components/less_chip.js?knighted-css&combined&named-only'
+import { LessChip, knightedCss as lessCss } from './components/less_chip.knighted-css.js'
 import {
   NativeBadge,
   knightedCss as nativeCss,
@@ -26,7 +26,7 @@ import {
   VeBanner,
   knightedCss as veBannerCss,
 } from './components/ve_banner.knighted-css.js'
-
+import * as sharedBridgeModule from './components/shared_bridge_panel.js?knighted-css&combined&named-only'
 import { hostChrome } from './host_chrome.js'
 
 /**
@@ -34,8 +34,10 @@ import { hostChrome } from './host_chrome.js'
  * The `asKnightedCssCombinedModule` helper is used to extract the React component and the CSS from the combined module.
  * This is useful when you don't want to run the knighted-css-generate-types command for every CSS module.
  */
-const { LessChip, knightedCss: lessCss } =
-  asKnightedCssCombinedModule<typeof import('./components/less_chip.js')>(lessChipModule)
+const { SharedBridgePanel, knightedCss: sharedBridgeCss } =
+  asKnightedCssCombinedModule<typeof import('./components/shared_bridge_panel.js')>(
+    sharedBridgeModule,
+  )
 
 @customElement('css-react-host')
 export class CssReactHost extends LitElement {
@@ -46,6 +48,7 @@ export class CssReactHost extends LitElement {
     unsafeCSS(sassCss),
     unsafeCSS(autoStableCss),
     unsafeCSS(veBannerCss),
+    unsafeCSS(sharedBridgeCss),
     hostChrome,
   ]
 
@@ -94,6 +97,7 @@ export class CssReactHost extends LitElement {
           location="shadow"
           stableToken={${stableSelectors.panel}}
         />
+        <${SharedBridgePanel} location="shadow" />
       </div>
     `)
   }

@@ -1,0 +1,33 @@
+.panel {
+  display: grid;
+  gap: 0.75rem;
+  border-radius: 18px;
+  padding: 1.25rem;
+  background: linear-gradient(140deg, #111827 0%, #1f2937 55%, #111827 100%);
+  color: #f8fafc;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: #fbbf24;
+}
+
+.copy {
+  margin: 0;
+  color: rgba(248, 250, 252, 0.8);
+}
+
+.badge {
+  justify-self: start;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
