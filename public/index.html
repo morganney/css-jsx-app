@@ -62,11 +62,59 @@
         display: grid;
         gap: 1rem;
       }
+      .repo-footer {
+        display: grid;
+        justify-items: center;
+        margin-top: 1rem;
+        opacity: 0.8;
+      }
+      .repo-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.95rem;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        background: rgba(15, 23, 42, 0.55);
+        transition:
+          color 150ms ease,
+          border-color 150ms ease,
+          background 150ms ease;
+      }
+      .repo-link:hover,
+      .repo-link:focus-visible {
+        color: #e2e8f0;
+        border-color: rgba(99, 102, 241, 0.65);
+        background: rgba(30, 41, 59, 0.75);
+      }
     </style>
   </head>
   <body>
+    <header class="repo-footer" aria-label="Demo source">
+      <a
+        class="repo-link"
+        href="https://github.com/morganney/css-jsx-app"
+        target="_blank"
+        rel="noreferrer"
+      >
+        View this demo on GitHub →
+      </a>
+    </header>
     <div id="app"></div>
     <div id="extra-react-root"></div>
+    <footer class="repo-footer">
+      <a
+        class="repo-link"
+        href="https://github.com/morganney/css-jsx-app"
+        target="_blank"
+        rel="noreferrer"
+      >
+        View this demo on GitHub →
+      </a>
+    </footer>
     <script src="./bundle.js" type="module"></script>
   </body>
 </html>
